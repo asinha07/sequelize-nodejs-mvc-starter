@@ -1,0 +1,47 @@
+{
+  "name": "storyteller",
+  "version": "1.0.0",
+  "description": "Backend for storytellers",
+  "main": "app.js",
+  "scripts": {
+    "test": "node ./bin/www",
+    "start": "node ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asinha07/storyteller.git"
+  },
+  "keywords": [
+    "storyteller",
+    "social",
+    "story"
+  ],
+  "author": "Aman Sinha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asinha07/storyteller/issues"
+  },
+  "homepage": "https://github.com/asinha07/storyteller#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "colors": "0.6.2",
+    "express": "^4.0.0",
+    "express-myconnection": "^1.0.4",
+    "http": "0.0.0",
+    "lodash": "^2.3.0",
+    "method-override": "^2.3.10",
+    "moment": "^2.4.0",
+    "morgan": "^1.9.0",
+    "mysql": "^2.15.0",
+    "mysql2": "^1.5.2",
+    "nodemon": "^1.15.1",
+    "orm": "^4.0.2",
+    "path": "^0.12.7",
+    "pg": "2.6.2",
+    "promise": "^8.0.1",
+    "pug": "^2.0.0-rc.4",
+    "request": "^2.83.0",
+    "sequelize": "^4.33.4",
+    "sequelize-restful": "^0.4.3"
+  }
+}
