@@ -15,7 +15,7 @@ app.use('/', routes);
 
 
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  var err = new Error('X');
   err.status = 404;
   next(err);
 });
