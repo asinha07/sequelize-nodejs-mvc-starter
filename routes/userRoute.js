@@ -10,4 +10,8 @@ router.get('/getByUserName', function(req,res){
 router.post('/createUser', function(req,res){
     userController.createUser(req,res);
 })
+
+router.post('/loginuser', function(req,res){
+    userController.loginUser(req,res);
+})
 module.exports = router

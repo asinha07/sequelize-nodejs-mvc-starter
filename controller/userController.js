@@ -24,7 +24,20 @@ var createUser = function(req,res){
     }
 }
 
+var loginUser = function(req,res){
+    userService.loginUser(req.body)
+        .then((response) => {
+            if(response.id != null){
+                sendResponse.sendSuccessResponse(res,response);
+            }
+            else{
+                sendResponse.sendFailureResponse(res,302,response.message);
+            }
+        }).catch((err) => {sendResponse.sendFailureResponse(res,302,err)})
+}
+
 module.exports = {
     getUserByUserName : getUserByUserName,
-    createUser: createUser
+    createUser: createUser,
+    loginUser : loginUser
 }

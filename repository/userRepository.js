@@ -12,7 +12,7 @@ var getUserByUserName = function(name){
     });
 }
 
-var createUser = function(username,password,name,email,phone,picture,sex,city,state,country){
+var createUser = function(username,password,name,email,phone,picture,sex,city,state,country,age){
     return new Promise((resolve,reject) => {
         models.users.create({
             username: username,
@@ -31,7 +31,21 @@ var createUser = function(username,password,name,email,phone,picture,sex,city,st
     })
 }
 
+var updateLogin = function(username){
+    return new Promise((resolve,reject) => {
+        models.users.update(
+            {isLogin : 1},
+            {where:{username: username}}
+        ).then((response) => {
+            resolve(response)
+        }).catch((err) => {
+            reject(err)
+        })
+    })
+}
+
 module.exports = {
     getUserByUserName: getUserByUserName,
-    createUser: createUser
+    createUser: createUser,
+    updateLogin: updateLogin
 }

@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       city: DataTypes.STRING,
       state: DataTypes.STRING,
       country: DataTypes.STRING,
-      age: DataTypes.INTEGER
+      age: DataTypes.INTEGER,
+      isLogin : DataTypes.INTEGER
     },{
       timestamps: false
     });
