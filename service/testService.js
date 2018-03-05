@@ -1,7 +1,7 @@
 var testRepository = require('../repository/testRepository');
-
+var userRepository = require('../repository/userRepository');
 var getUserById = function(id){
-    return new Promise((resolve,reject)=>{testRepository.getUserById(id)
+    return new Promise((resolve,reject)=>{userRepository.getUserByUserName(id)
         .then((response)=>{
             resolve(response);
         })
