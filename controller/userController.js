@@ -1,5 +1,6 @@
 var userService = require('../service/userService');
 var userValidator = require('../validators/userValidator');
+var sendResponse = require('../response/sendResponse');
 
 var getUserByUserName = function(req,res){
     userService.getUserByUserName(req.query.username)
@@ -10,22 +11,16 @@ var getUserByUserName = function(req,res){
 
 var createUser = function(req,res){
     var validation = userValidator.validateCreateUserRequest(req.body);
-    console.log(validation);
     if(validation.status){
         userService.createUser(req.body)
             .then((response) => {
-                res.send(response);
+                sendResponse.sendSuccessResponse(res,response);
             }).catch((err) => { 
-                res.status = err.status || 500,
-                res.send(err.message);
+                sendResponse.sendFailureResponse(res,500,err);
             });
     }
     else{
-        res.status(500);
-        var response = {};
-        console.log(validation);
-        response.message = validation.error;
-        res.send(response);
+        sendResponse.sendFailureResponse(res,500,validation.error);
     }
 }
 

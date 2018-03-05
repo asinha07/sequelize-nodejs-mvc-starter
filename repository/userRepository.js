@@ -24,9 +24,9 @@ var createUser = function(username,password,name,email,phone,picture,sex,city,st
             sex: sex,
             city: city,
             state: state,
-            country: country
+            country: country,
+            age: age
         }).then((response) => {
-            console.log(response.id);
             resolve(response)}).catch((err) => reject(err));
     })
 }

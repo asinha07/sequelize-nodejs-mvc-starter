@@ -16,7 +16,7 @@ var getUserByUserName = function(userName){
 var createUser = function(request){
     var password = utils.encrypt(request.password);
     return new Promise((resolve,reject) => {
-        userRepository.createUser(request.username,password,request.name,request.email,request.phone,request.picture,request.sex,request.city,request.state,request.country)
+        userRepository.createUser(request.username,password,request.name,request.email,request.phone,request.picture,request.sex,request.city,request.state,request.country,request.age)
             .then((response) => {
                 resolve(response)
             })
