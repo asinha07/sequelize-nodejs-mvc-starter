@@ -5,9 +5,10 @@ var sendSuccessResponse = function(res,data){
     res.send(response);
 }
 
-var sendFailureResponse = function(res, status, error){
+var sendFailureResponse = function(res, status, error, errorCode){
     var response = {}
     response.error = error;
+    response.errorCode = errorCode;
     res.status(status);
     res.send(response);
 }

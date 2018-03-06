@@ -14,4 +14,9 @@ router.post('/createUser', function(req,res){
 router.post('/loginuser', function(req,res){
     userController.loginUser(req,res);
 })
+
+router.get('/logoutUser', function(req,res){
+    userController.logoutUser(req,res);
+})
+
 module.exports = router

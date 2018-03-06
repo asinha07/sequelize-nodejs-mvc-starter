@@ -27,8 +27,39 @@ var createUser = function(request){
     })
 }
 
+var logoutUser = function(request){
+    return new Promise((resolve,reject) => {
+        userRepository.logoutUser(request.username)
+            .then((response) => {
+                resolve(makeLogOutResponse(response))
+            }).catch((err) => {
+                reject(err)
+            })
+    })
+}
+
+var makeLogOutResponse = function(responseFromLogoutUser){
+    var responseArray = {};
+    if(responseFromLogoutUser[0] == 0){
+        responseArray.status = false;
+        responseArray.data = "Not able to log out, please try again";
+    }
+    else{
+        responseArray.status = true;
+        responseArray.data = "Successfully Logged out";
+    }
+    return responseArray;
+
+}
+
 var loginUser = function(request){
-    
+    return new Promise((resolve,reject) => {
+        getUserByName(request.username)
+            .then((response)=>{
+                resolve(matchPassword(request.password,request.username,response[0].dataValues))
+            })
+            .catch((err) =>reject(err))
+    });
 }
 
 var getUserByName = function(userName){   
@@ -40,27 +71,24 @@ var getUserByName = function(userName){
     })
 }
 
-var matchPassword = function(password,username,isLogin){
+var matchPassword = function(password,username,user){
     var responseArray = {}
-    if(isLogin == 1){
-        responseArray.status = false;
-        responseArray.message = "Already logged in";
-    }
-    if(response.password === password){
-        userRepository.updateLogin(request.username);
+    if(user.password == password){
+        new Promise((resolve,reject) => {userRepository.loginUser(username)});
         responseArray.status = true;
-        responseArray.message = "success";
+        user.isLogin = 1;
+        responseArray.data = user;
     }
     else{
         responseArray.status = false;
-        responseArray.message = "failed";
+        responseArray.data = "failed";
     }
-    console.log(responseArray);
     return responseArray;
 }
 
 module.exports = {
     getUserByUserName : getUserByUserName,
     createUser : createUser,
-    loginUser: loginUser
+    loginUser: loginUser,
+    logoutUser: logoutUser
 }

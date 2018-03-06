@@ -16,7 +16,7 @@ var createUser = function(req,res){
             .then((response) => {
                 sendResponse.sendSuccessResponse(res,response);
             }).catch((err) => { 
-                sendResponse.sendFailureResponse(res,500,err);
+                sendResponse.sendFailureResponse(res,500,err,1);
             });
     }
     else{
@@ -27,17 +27,30 @@ var createUser = function(req,res){
 var loginUser = function(req,res){
     userService.loginUser(req.body)
         .then((response) => {
-            if(response.id != null){
+            if(response.status == true){
                 sendResponse.sendSuccessResponse(res,response);
             }
             else{
-                sendResponse.sendFailureResponse(res,302,response.message);
+                sendResponse.sendFailureResponse(res,302,response.data,2);
             }
-        }).catch((err) => {sendResponse.sendFailureResponse(res,302,err)})
+        }).catch((err) => {sendResponse.sendFailureResponse(res,302,err,2)})
+}
+
+var logoutUser = function(req,res){
+    userService.logoutUser(req.query)
+        .then((response) => {
+            if(response.status == true){
+                sendResponse.sendSuccessResponse(res,response);
+            }
+            else{
+                sendResponse.sendFailureResponse(res,302,response.data,3);
+            }
+        }).catch((err) => {sendResponse.sendFailureResponse(res,302,err,3)})
 }
 
 module.exports = {
     getUserByUserName : getUserByUserName,
     createUser: createUser,
-    loginUser : loginUser
+    loginUser : loginUser,
+    logoutUser: logoutUser
 }

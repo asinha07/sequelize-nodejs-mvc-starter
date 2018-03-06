@@ -31,21 +31,25 @@ var createUser = function(username,password,name,email,phone,picture,sex,city,st
     })
 }
 
-var updateLogin = function(username){
-    return new Promise((resolve,reject) => {
+var loginUser = function(username){
         models.users.update(
             {isLogin : 1},
             {where:{username: username}}
-        ).then((response) => {
-            resolve(response)
-        }).catch((err) => {
-            reject(err)
-        })
-    })
+        ).then((response) => {console.log(response)}).catch((err) => {console.log(err) })
+}
+
+var logoutUser = function(username){
+   return new Promise((resolve,reject) => { models.users.update(
+        {isLogin : 0},
+        {where:{username: username}}
+    ).then((response) => {
+        resolve(response)
+    }).catch((err) => {reject(err) })})
 }
 
 module.exports = {
     getUserByUserName: getUserByUserName,
     createUser: createUser,
-    updateLogin: updateLogin
+    loginUser: loginUser,
+    logoutUser: logoutUser
 }
