@@ -1,21 +1,10 @@
-var userRepository = require('../repository/userRepository');
-var utils = require('../utils/utils')
-var nodemailer = require('nodemailer')
+const userRepository = require('../repository/userRepository');
+const utils = require('../utils/utils')
+const nodemailer = require('nodemailer')
+const errorResponse = require('../response/errorResponse')
 
-var getUserByUserName = function(userName){
-    return new Promise((resolve,reject) => {
-        userRepository.getUserByUserName(userName)
-            .then((response) =>{
-                resolve(response);
-            })
-            .catch((err) =>{
-                reject(err);
-            })
-    })
-}
 
-var createUser = function(request){
-    var password = utils.encrypt(request.password);
+const createUser = function(request){
     return new Promise((resolve,reject) => {
         userRepository.createUser(request.username,password,request.name,request.email,request.phone,request.picture,request.sex,request.city,request.state,request.country,request.age)
             .then((response) => {
@@ -27,7 +16,7 @@ var createUser = function(request){
     })
 }
 
-var logoutUser = function(request){
+const logoutUser = function(request){
     return new Promise((resolve,reject) => {
         userRepository.logoutUser(request.username)
             .then((response) => {
@@ -38,8 +27,8 @@ var logoutUser = function(request){
     })
 }
 
-var makeLogOutResponse = function(responseFromLogoutUser){
-    var responseArray = {};
+const makeLogOutResponse = function(responseFromLogoutUser){
+    let responseArray = {};
     if(responseFromLogoutUser[0] == 0){
         responseArray.status = false;
         responseArray.data = "Not able to log out, please try again";
@@ -52,7 +41,7 @@ var makeLogOutResponse = function(responseFromLogoutUser){
 
 }
 
-var loginUser = function(request){
+const loginUser = function(request){
     return new Promise((resolve,reject) => {
         getUserByName(request.username)
             .then((response)=>{
@@ -62,17 +51,8 @@ var loginUser = function(request){
     });
 }
 
-var getUserByName = function(userName){   
-    return new Promise ((resolve,reject) => {
-        userRepository.getUserByUserName(userName)
-        .then((response) => {
-            resolve(response);
-        }).catch((err) => {reject(err)});
-    })
-}
-
-var matchPassword = function(password,username,user){
-    var responseArray = {}
+const matchPassword = function(password,username,user){
+    let responseArray = {}
     if(user.password == password){
         new Promise((resolve,reject) => {userRepository.loginUser(username)});
         responseArray.status = true;
@@ -87,7 +67,6 @@ var matchPassword = function(password,username,user){
 }
 
 module.exports = {
-    getUserByUserName : getUserByUserName,
     createUser : createUser,
     loginUser: loginUser,
     logoutUser: logoutUser

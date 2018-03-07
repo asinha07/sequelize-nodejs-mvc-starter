@@ -27,7 +27,7 @@ var createUser = function(username,password,name,email,phone,picture,sex,city,st
             country: country,
             age: age
         }).then((response) => {
-            resolve(response)}).catch((err) => reject(err));
+            resolve(response)}).catch((err) => {eject(err)});
     })
 }
 
